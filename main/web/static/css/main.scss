@@ -1,0 +1,27 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/jack-hermanson-css-lib/src/main";
+@import url("../fonts/Inter-Regular.ttf");
+
+html, body {
+  min-height: 100vh;
+}
+
+footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  .container {
+    padding-top: 2em;
+    padding-bottom: 2em;
+
+  }
+  input[type=checkbox] {
+    cursor: pointer;
+  }
+  label {
+    user-select: none;
+  }
+  p {
+    margin-bottom: 0;
+  }
+}

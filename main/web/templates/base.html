@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Chores | {{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="{{ url_for("static", filename="node_modules/htmx.org/dist/htmx.min.js") }}"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url_for('home.index') }}">
+{#            <img alt="logo" src="{{ url_for("static", filename="logo-transparent.svg") }}" width="22" height="22" class="d-inline-block align-text-top logo">#}
+            <span class="d-inline-block">TechShop</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav me-auto">
+                {% if current_user.is_authenticated and current_user.clearance >= 1 %}
+{#                    <li class="nav-item">#}
+{#                        <a href="{{ url_for("chore_logs.index") }}" class="nav-link {% if active_route == "chore_logs" or active_route == "chores" %}active{% endif %}">Chores</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a href="{{ url_for("lists.index") }}" class="nav-link {% if active_route == "lists" %}active{% endif %}">Lists</a>#}
+{#                    </li>#}
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ms-auto">
+{#                {% if current_user.is_authenticated %}#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link {% if active_route == 'accounts' %}active{% endif %}" href="{{ url_for('accounts.profile') }}">{{ current_user.name }}</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a#}
+{#                            hx-confirm="Are you sure you want to log out?"#}
+{#                            hx-target="body"#}
+{#                            hx-post="{{ url_for("accounts.logout") }}"#}
+{#                            href="{{ url_for("accounts.logout") }}"#}
+{#                            class="nav-link"#}
+{#                        >#}
+{#                            Log Out#}
+{#                        </a>#}
+{#                    </li>#}
+{#                {% else %}#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link {% if active_route == 'users' %}active{% endif %}" href="{{ url_for('accounts.login') }}">Log In</a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <div class="container mt-3">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="mb-0">{{ message }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+
+
+
+{% block breadcrumbs %}
+
+{% endblock %}
+
+<div class="container main-container pb-3">
+    <div class="row">
+        <div class="col-12 mb-2">
+            <div class="page-title">
+                <h2>
+                    {% if title %}
+                    {{ text_title if text_title else title }}
+                    {% endif %}
+                </h2>
+                <div class="actions">
+                    {% block actions %}
+                    {% endblock actions %}
+                </div>
+            </div>
+            <hr class="mt-1" />
+        </div>
+    </div>
+    {% block body %}
+    {% endblock body %}
+
+</div>
+<footer>
+    <div class="container border-top">
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-input" id="dark-mode-checkbox">
+            <label for="dark-mode-checkbox" class="form-check-label">Light Mode</label>
+        </div>
+    </div>
+</footer>
+
+{% block modals %}{% endblock modals %}
+
+<script src="{{ url_for("static", filename="node_modules/bootstrap/dist/js/bootstrap.bundle.js") }}"></script>
+
+{% block scripts %}
+{% endblock scripts %}
+<script>
+    (() => {
+        if (localStorage.getItem("mode") === "dark" || !(localStorage.getItem("mode"))) {
+            document.querySelector("html").setAttribute("data-bs-theme", "dark");
+        } else if (localStorage.getItem("mode") === "light") {
+            document.querySelector("html").setAttribute("data-bs-theme", "light");
+            document.getElementById("dark-mode-checkbox").setAttribute("checked", "true");
+        }
+    })();
+</script>
+<script defer>
+    function toggleDarkMode(event) {
+        const value = event.target.checked ? "light" : "dark";
+        console.log(value);
+        document.querySelector("html").setAttribute("data-bs-theme", value);
+        localStorage.setItem("mode", value);
+    }
+
+    document.getElementById("dark-mode-checkbox").addEventListener("change", toggleDarkMode);
+</script>
+</body>
+</html>
