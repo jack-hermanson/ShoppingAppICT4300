@@ -4,7 +4,6 @@
  * Copyright 2011-2023 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-@import url("../fonts/Inter-Regular.ttf");
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
@@ -11918,6 +11917,7 @@ table.same-width tbody > tr th {
 
 html, body {
   min-height: 100vh;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 footer {
@@ -11937,6 +11937,21 @@ footer label {
 }
 footer p {
   margin-bottom: 0;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter.ttf") format("truetype");
+  font-weight: 100 1000;
+}
+.blink-me {
+  animation: blinker 1s steps(2) infinite;
+}
+
+@keyframes blinker {
+  0% {
+    opacity: 0;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

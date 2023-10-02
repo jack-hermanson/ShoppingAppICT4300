@@ -1,9 +1,11 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/jack-hermanson-css-lib/src/main";
-@import url("../fonts/Inter-Regular.ttf");
+
+
 
 html, body {
   min-height: 100vh;
+  font-family:  /*"SF Pro Rounded", */"Inter", $font-family-sans-serif;
 }
 
 footer {
@@ -13,7 +15,6 @@ footer {
   .container {
     padding-top: 2em;
     padding-bottom: 2em;
-
   }
   input[type=checkbox] {
     cursor: pointer;
@@ -23,5 +24,21 @@ footer {
   }
   p {
     margin-bottom: 0;
+  }
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter.ttf") format("truetype");
+  font-weight: 100 1000;
+}
+
+.blink-me {
+  animation: blinker 1s steps(2) infinite;
+}
+
+@keyframes blinker {
+  0% {
+    opacity: 0;
   }
 }
