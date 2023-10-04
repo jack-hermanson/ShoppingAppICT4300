@@ -9,6 +9,7 @@ import logging
 import os
 import sys
 
+
 bcrypt = Bcrypt()
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -43,8 +44,10 @@ def create_app(config_class=Config):
 
     # routes and blueprints
     from .modules.home.routes import home
+    from .modules.accounts.routes import accounts
+    from .modules.errors.handlers import errors
 
-    for blueprint in [home]:
+    for blueprint in [home, accounts, errors]:
         app.register_blueprint(blueprint)
 
     # login manager

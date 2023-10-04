@@ -1,11 +1,15 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
-@import "../node_modules/jack-hermanson-css-lib/src/main";
+@import "../node_modules/jack-hermanson-css-lib/src/main.scss";
 
 
 
 html, body {
   min-height: 100vh;
   font-family:  /*"SF Pro Rounded", */"Inter", $font-family-sans-serif;
+}
+
+.form-group {
+  @extend .mb-3;
 }
 
 footer {
@@ -34,7 +38,7 @@ footer {
 }
 
 .blink-me {
-  animation: blinker 1s steps(2) infinite;
+  animation: blinker 1.5s steps(2) infinite;
 }
 
 @keyframes blinker {

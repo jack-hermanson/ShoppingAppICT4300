@@ -7944,7 +7944,7 @@ textarea.form-control-lg {
   margin-bottom: 0.5rem !important;
 }
 
-.mb-3 {
+.mb-3, .form-group {
   margin-bottom: 1rem !important;
 }
 
@@ -11945,7 +11945,7 @@ footer p {
   font-weight: 100 1000;
 }
 .blink-me {
-  animation: blinker 1s steps(2) infinite;
+  animation: blinker 1.5s steps(2) infinite;
 }
 
 @keyframes blinker {
