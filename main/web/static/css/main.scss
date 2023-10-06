@@ -12,8 +12,11 @@ html, body {
   @extend .mb-3;
 }
 
+.main-container {
+  //min-height: 70vh;
+}
+
 footer {
-  position: absolute;
   width: 100%;
   bottom: 0;
   .container {

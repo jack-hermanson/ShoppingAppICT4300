@@ -4,6 +4,8 @@ from flask_wtf import FlaskForm
 from wtforms.fields import StringField, SubmitField, PasswordField, BooleanField, EmailField
 from wtforms.validators import DataRequired, EqualTo, ValidationError, Email, Length
 
+func.trim()
+
 name_length = Length(min=2, max=15)
 password_length = Length(max=100)
 
@@ -45,10 +47,10 @@ class Create(FlaskForm):
 
     @staticmethod
     def validate_username(_, username):
-        if Account.query.filter(func.lower(Account.username) == func.lower(username.data)).all():
+        if Account.query.filter(func.lower(Account.username) == func.lower(username.data.strip())).all():
             raise ValidationError("That username has already been taken.")
 
     @staticmethod
     def validate_email(_, email):
-        if Account.query.filter(func.lower(Account.email) == func.lower(email.data)).all():
+        if Account.query.filter(func.lower(Account.email) == func.lower(email.data.strip())).all():
             raise ValidationError("That email has already been taken.")
