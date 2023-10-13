@@ -8,7 +8,7 @@
 {% block body %}
     <div class="row">
         <div class="col-12 col-lg-8">
-            <form action="." method="POST">
+            <form action="{{ url_for("items.create") if mode == "create" else None }}" method="POST">
                 {{ form.hidden_tag() }}
                 {{ form_group(form, "name", required=True, render_kw={"autofocus": True}) }}
                 {{ form_group(form, "description") }}
@@ -17,6 +17,7 @@
 
                 <div class="bottom-buttons">
                     {{ form.submit(class="btn btn-success") }}
+                    <a href="{{ url_for("items.create") if mode == "create" else None }}" class="btn btn-secondary">Reset</a>
                 </div>
             </form>
         </div>
