@@ -1,0 +1,46 @@
+{% from "macros/key-val-list-item.html" import key_val_list_item %}
+
+<div class="card mb-4 no-mb-last">
+    <div class="card-header">
+        <h5 class="mb-0">{{ item.name }}</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="list-group list-group-flush">
+            {% call key_val_list_item("Name") %}
+                <div>
+                    {{ item.name }}
+                </div>
+            {% endcall %}
+            {% call key_val_list_item("Description") %}
+                <div>
+                    {% if item.description %}
+                        {{ item.description }}
+                    {% else %}
+                        <span class="text-muted">(No description)</span>
+                    {% endif %}
+                </div>
+            {% endcall %}
+            {% call key_val_list_item("Image URL") %}
+                <div>
+                    {% if item.image_url %}
+                        <a href="{{ item.image_url }}" target="_blank">{{ item.image_url }}</a>
+                    {% else %}
+                        <span class="text-muted">(No image URL)</span>
+                    {% endif %}
+                </div>
+            {% endcall %}
+            {% call key_val_list_item("Current Inventory") %}
+                <div>
+                    <span
+                            class="badge bg-{% if item.current_inventory < 1 %}danger{% elif item.current_inventory < 10 %}warning text-dark{% else %}success{% endif %}"
+                    >
+                        {{ item.current_inventory }}
+                    </span>
+                </div>
+            {% endcall %}
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{{ url_for("items.edit", item_id=item.item_id) }}">Edit</a>
+    </div>
+</div>

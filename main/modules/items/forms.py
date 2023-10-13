@@ -14,5 +14,5 @@ class CreateEdit(FlaskForm):
     name = StringField("Name", validators=[DataRequired(), name_length])
     description = TextAreaField("Description", validators=[description_length])
     image_url = URLField("Image URL", validators=[image_url_length])
-    current_inventory = IntegerField("Current Inventory", validators=[DataRequired(), inventory_range])
+    current_inventory = IntegerField("Current Inventory", validators=[inventory_range])
     submit = SubmitField("Submit")

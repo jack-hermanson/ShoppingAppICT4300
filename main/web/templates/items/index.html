@@ -11,12 +11,19 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-12 col-lg-8">
-            <p>Admin item management</p>
+        <div class="col-12 col-lg-8 order-1 order-lg-0">
             {% for item in items_list %}
-            	<p>{{ item.name }} <a href="{{ url_for("items.edit", item_id=item.item_id) }}">Edit</a>
-                </p>
+            	{% include "items/item-index-partial.html" %}
             {% endfor %}
+        </div>
+        <div class="col-12 col-lg-4 order-0 order-lg-1 mb-4 mb-lg-0">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-text">
+                        <p class="mb-0">This admin screen is used to manage items in the inventory.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock body %}

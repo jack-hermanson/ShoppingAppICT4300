@@ -62,9 +62,10 @@ def edit(item_id: int):
         form.description.data = item.description
         form.image_url.data = item.image_url
         form.current_inventory.data = item.current_inventory
-        return render_template("items/create-edit.html",
-                               mode="edit",
-                               item=item,
-                               form=form)
+
+    return render_template("items/create-edit.html",
+                           mode="edit",
+                           item=item,
+                           form=form)
 
 
