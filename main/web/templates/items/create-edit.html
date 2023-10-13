@@ -2,13 +2,13 @@
 
 {% from "macros/form.html" import form_group %}
 
-{% set title = "Create Item" if mode == "create" else "edit" %}
+{% set title = "Create Item" if mode == "create" else "Edit " + item.name %}
 {% set active_route = "items" %}
 
 {% block body %}
     <div class="row">
         <div class="col-12 col-lg-8">
-            <form action="{{ url_for("items.create") if mode == "create" else None }}" method="POST">
+            <form action="{{ url_for("items.create") if mode == "create" else url_for("items.edit", item_id=item.item_id) }}" method="POST">
                 {{ form.hidden_tag() }}
                 {{ form_group(form, "name", required=True, render_kw={"autofocus": True}) }}
                 {{ form_group(form, "description") }}
@@ -17,7 +17,7 @@
 
                 <div class="bottom-buttons">
                     {{ form.submit(class="btn btn-success") }}
-                    <a href="{{ url_for("items.create") if mode == "create" else None }}" class="btn btn-secondary">Reset</a>
+                    <a href="{{ url_for("items.create") if mode == "create" else url_for("items.edit", item_id=item.item_id) }}" class="btn btn-secondary">Reset</a>
                 </div>
             </form>
         </div>
