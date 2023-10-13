@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% set title = "Create Item" if mode == "create" else "edit" %}
+{% set active_route = "items" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            <p>You can {{ mode }} an item.</p>
+        </div>
+    </div>
+{% endblock body %}

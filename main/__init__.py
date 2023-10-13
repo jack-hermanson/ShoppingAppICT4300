@@ -36,6 +36,7 @@ def create_app(config_class=Config):
 
     # models
     from .modules.accounts import models
+    from .modules.items import models
 
     # database
     db.app = app
@@ -46,8 +47,9 @@ def create_app(config_class=Config):
     from .modules.home.routes import home
     from .modules.accounts.routes import accounts
     from .modules.errors.handlers import errors
+    from .modules.items.routes import items
 
-    for blueprint in [home, accounts, errors]:
+    for blueprint in [home, accounts, errors, items]:
         app.register_blueprint(blueprint)
 
     # login manager

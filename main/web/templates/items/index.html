@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% from "macros/action-link.html" import action_link %}
+
+{% set title = "Item & Inventory Management" %}
+{% set active_route = "items" %}
+
+{% block actions %}
+	{{ action_link("Create Item", url_for("items.create")) }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            <p>Admin item management</p>
+        </div>
+    </div>
+{% endblock body %}

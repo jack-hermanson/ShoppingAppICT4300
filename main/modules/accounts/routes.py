@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, abort, request, flash, redirect, url_for
-from flask_login import login_user, logout_user, current_user, login_required
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_login import login_user, logout_user, current_user
 from datetime import datetime
 from .forms import Login, Create
 from main import db, bcrypt
