@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% from "macros/action-link.html" import action_link %}
+
+{% set title = "My Account" %}
+{% set active_route = "accounts" %}
+
+{% block actions %}
+	{{ action_link("Log Out", url_for("accounts.logout")) }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            <p>Something.</p>
+        </div>
+    </div>
+{% endblock body %}

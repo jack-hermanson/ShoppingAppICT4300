@@ -63,4 +63,4 @@ def logout():
 
 @accounts.route("/me")
 def me():
-    return None, 418
+    return render_template("accounts/me.html")

@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>Chores | {{ title }}</title>
+    <title>TechSmart Store | {{ title }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -37,14 +37,6 @@
                 {% if current_user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link {% if active_route == 'accounts' %}active{% endif %}" href="{{ url_for('accounts.me') }}">{{ current_user.username }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            href="{{ url_for("accounts.logout") }}"
-                            class="nav-link"
-                        >
-                            Log Out
-                        </a>
                     </li>
                 {% else %}
                     <li class="nav-item">
