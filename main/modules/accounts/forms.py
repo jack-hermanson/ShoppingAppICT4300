@@ -4,7 +4,6 @@ from flask_wtf import FlaskForm
 from wtforms.fields import StringField, SubmitField, PasswordField, BooleanField, EmailField
 from wtforms.validators import DataRequired, EqualTo, ValidationError, Email, Length
 
-func.trim()
 
 name_length = Length(min=2, max=15)
 password_length = Length(max=100)

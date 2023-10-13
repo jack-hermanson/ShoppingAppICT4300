@@ -1,12 +1,24 @@
 {% extends "base.html" %}
 
+{% from "macros/form.html" import form_group %}
+
 {% set title = "Create Item" if mode == "create" else "edit" %}
 {% set active_route = "items" %}
 
 {% block body %}
     <div class="row">
         <div class="col-12 col-lg-8">
-            <p>You can {{ mode }} an item.</p>
+            <form action="." method="POST">
+                {{ form.hidden_tag() }}
+                {{ form_group(form, "name", required=True, render_kw={"autofocus": True}) }}
+                {{ form_group(form, "description") }}
+                {{ form_group(form, "image_url") }}
+                {{ form_group(form, "current_inventory", required=True) }}
+
+                <div class="bottom-buttons">
+                    {{ form.submit(class="btn btn-success") }}
+                </div>
+            </form>
         </div>
     </div>
 {% endblock body %}
