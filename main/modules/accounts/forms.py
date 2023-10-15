@@ -18,9 +18,10 @@ class Login(FlaskForm):
     submit = SubmitField("Log In")
 
     @staticmethod
-    def validate_name(_, username):
-        if not Account.query.filter(func.lower(Account.username) == func.lower(username.data)).count():
-            raise ValidationError("That username does not exist.")
+    def validate_username(_, username):
+        account_exists = Account.query.filter(func.lower(Account.username) == func.lower(username.data)).count()
+        if not account_exists:
+            raise ValidationError(f"The username {username.data} does not exist.")
 
 
 class Create(FlaskForm):
