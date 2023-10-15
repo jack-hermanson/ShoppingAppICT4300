@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
-{% set title = "Home" %}
+{% set title = "TechSmart Shop" %}
 {% set active_route = "Home" %}
 
 {% block body %}
     <div class="row">
         <div class="col-12 col-lg-8">
-            <p>Something to update.</p>
+            {% for item in items %}
+            	{% include "items/purchasable-item-partial.html" %}
+            {% endfor %}
         </div>
     </div>
 {% endblock body %}

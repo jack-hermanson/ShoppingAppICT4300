@@ -1,0 +1,20 @@
+<div class="card mb-4 no-mb-last">
+    <div class="card-body">
+        <h5 class="card-title">{{ item.name }}</h5>
+        <p>
+            {% if item.description %}
+                {{ item.description }}
+            {% else %}
+                <span class="text-muted">No description</span>
+            {% endif %}
+        </p>
+        <div>
+            <button class="btn btn-sm btn-success">Add to Cart</button>
+            <select class="form-control-sm" style="width: 70px">
+                {% for number in range(1, item.current_inventory) %}
+                    <option value="{{ number }}">{{ number }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>

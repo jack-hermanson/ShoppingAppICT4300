@@ -3,6 +3,9 @@ from .forms import CreateEdit
 from . import services
 from .models import Item
 from main import db
+from flask_login import current_user, login_required
+
+from ..accounts.ClearanceEnum import ClearanceEnum
 
 items = Blueprint("items", __name__, url_prefix="/items")
 
@@ -18,14 +21,21 @@ def update_item(item_entity, form) -> Item:
 
 
 @items.route("/")
+@login_required
 def index():
+    if not current_user.clearance >= ClearanceEnum.ADMIN:
+        return abort(403)
     items_list = services.get_all_items()
     return render_template("items/index.html",
                            items_list=items_list)
 
 
 @items.route("/create", methods=["GET", "POST"])
+@login_required
 def create():
+    if not current_user.clearance >= ClearanceEnum.ADMIN:
+        return abort(403)
+
     form = CreateEdit()
 
     if form.validate_on_submit():
@@ -45,7 +55,11 @@ def create():
 
 
 @items.route("/edit/<int:item_id>", methods=["GET", "POST"])
+@login_required
 def edit(item_id: int):
+    if not current_user.clearance >= ClearanceEnum.ADMIN:
+        return abort(403)
+
     item = Item.query.get_or_404(item_id)
 
     form = CreateEdit()
@@ -67,5 +81,3 @@ def edit(item_id: int):
                            mode="edit",
                            item=item,
                            form=form)
-
-
