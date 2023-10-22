@@ -11,3 +11,7 @@ FLASK_APP=main
 # production only:
 DATABASE_URL=PRODUCTIONDBURL
 ```
+
+```sh
+flask --app main db upgrade
+```
