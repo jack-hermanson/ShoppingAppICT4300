@@ -2,6 +2,8 @@ from flask import Blueprint, request
 from flask_login import current_user
 from uuid import uuid4
 
+from main.modules.carts import services
+
 carts = Blueprint("carts", __name__, url_prefix="/carts")
 
 
@@ -13,22 +15,15 @@ def temp():
 
 @carts.route("/initialize")
 def initialize_cart():
-    if current_user.is_authenticated:
-        # User is authenticated.
-        # See if user already has a cart.
-        # todo
-        return "ok"
+    """
+    Initialize a cart and return its guid.
+    This route should be accessed via JavaScript.
+    """
+    cart = services.get_or_initialize_cart(request.args.get("cart_guid"))
+    if not cart:
+        return "", 404
+    return cart.cart_guid
 
-    # User is not authenticated, do we need a new cart?
-    elif request.args.get("cart_guid"):
-        # We are told by the browser that there is already a cart.
-        # Try to find it. todo
-        return "temp"
-
-    # User is not authenticated and browser isn't aware of any cart.
-    # Create a new one.
-    guid = uuid4()
-    return guid.__str__()
 
 
 
