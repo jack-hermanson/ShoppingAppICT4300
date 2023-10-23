@@ -1,0 +1,22 @@
+<div id="cart-items">
+    {% if cart.items|length < 1 %}
+        <p>Cart is empty</p>
+    {% else %}
+    <h5>Items in cart:</h5>
+    <ul>
+        {% for item in cart.items %}
+            <li>
+                {{ item.name }}
+                <a
+                    href="{{ url_for("carts.remove_from_cart", item_id=item.item_id, screen="cart") }}"
+                    hx-post="{{ url_for("carts.remove_from_cart", item_id=item.item_id, screen="cart") }}"
+                    hx-target="#cart-items"
+                    hx-swap="outerHTML"
+                >
+                    Remove from cart
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>

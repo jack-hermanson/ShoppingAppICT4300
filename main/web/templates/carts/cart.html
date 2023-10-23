@@ -6,13 +6,7 @@
 {% block body %}
     <div class="row">
         <div class="col-12 col-lg-8">
-            {% if cart.items|length < 1 %}
-                <p>Cart is empty</p>
-            {% endif %}
-
-            {% for item in cart.items %}
-                <p>{{ item.name }}</p>
-            {% endfor %}
+            {% include "carts/cart-items-partial.html" %}
         </div>
     </div>
 {% endblock body %}

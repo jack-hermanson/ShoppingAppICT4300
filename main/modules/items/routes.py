@@ -81,3 +81,17 @@ def edit(item_id: int):
                            mode="edit",
                            item=item,
                            form=form)
+
+
+@items.route("/delete/<int:item_id>", methods=["DELETE"])
+@login_required
+def delete(item_id):
+    if current_user.clearance < ClearanceEnum.ADMIN:
+        return abort(403)
+    item = Item.query.get_or_404(item_id)
+    db.session.delete(item)
+    db.session.commit()
+
+    items_list = services.get_all_items()
+    return render_template("items/items-list-partial.html",
+                           items_list=items_list)

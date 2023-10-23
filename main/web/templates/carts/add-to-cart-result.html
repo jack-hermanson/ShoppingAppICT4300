@@ -1,0 +1,13 @@
+{# This might not be the best way to do this. It feels a little awkward. #}
+{# I'm trying to replace the html of both the item and the cart in the top right. #}
+{# From what I've read, the best way to do this is hx-select-oob. #}
+{# To make that work, however, both pieces of html you want to replace it with must come in the same response. #}
+{% if screen == "items" %}
+    {% include "items/purchasable-item-partial.html" %}
+{% elif screen == "cart" %}
+    {% include "carts/cart-items-partial.html" %}
+{% else %}
+    <p>ERROR</p>
+{% endif %}
+
+{% include "carts/cart-anchor-partial.html" %}
