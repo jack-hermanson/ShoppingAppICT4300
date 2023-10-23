@@ -27,14 +27,14 @@
                     <li class="nav-item">
                         <a href="{{ url_for("items.index") }}" class="nav-link {% if active_route == "items" %}active{% endif %}">Manage Items</a>
                     </li>
-{#                    <li class="nav-item">#}
-{#                        <a href="{{ url_for("lists.index") }}" class="nav-link {% if active_route == "lists" %}active{% endif %}">Lists</a>#}
-{#                    </li>#}
 
                 {% endif %}
             </ul>
             <ul class="navbar-nav ms-auto">
                 {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        {% include "carts/cart-anchor-partial.html" %}
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link {% if active_route == 'accounts' %}active{% endif %}" href="{{ url_for('accounts.me') }}">{{ current_user.username }}</a>
                     </li>
@@ -127,26 +127,6 @@
     }
 
     document.getElementById("dark-mode-checkbox").addEventListener("change", toggleDarkMode);
-</script>
-<script>
-    // initialize cart
-
-    let cartGuid = localStorage.getItem("cart_guid");
-    if (!cartGuid) {
-        cartGuid = "";
-    }
-
-    fetch(`{{ url_for('carts.initialize_cart') }}?cart_guid=${cartGuid}`)
-        .then(response => response.text())
-        .then(data => {
-            localStorage.setItem("cart_guid", data);
-            console.log("here's our GUID: " + data);
-        })
-        .catch(error => {
-            console.error(error);
-            localStorage.removeItem("cart_guid");
-            console.log("This failed for some reason");
-        });
 </script>
 </body>
 </html>

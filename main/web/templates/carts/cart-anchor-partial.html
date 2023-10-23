@@ -1,0 +1,12 @@
+<a href="{{ url_for("carts.my_cart") }}" class="nav-link" id="cart-anchor">
+    <span class="badge bg-secondary-subtle">
+        <span>🛒</span>
+        {% if not current_user.cart %}
+            ERROR
+        {% elif current_user.cart.items|length > 0 %}
+            <span class="ms-2">
+                {{ current_user.cart.items|length }}
+            </span>
+        {% endif %}
+    </span>
+</a>
