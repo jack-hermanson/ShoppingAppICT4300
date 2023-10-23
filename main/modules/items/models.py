@@ -13,3 +13,4 @@ class Item(db.Model):
     description = db.Column(db.String(ITEM_DESCRIPTION_MAX_LENGTH), nullable=True)
     image_url = db.Column(db.String(ITEM_IMAGE_URL_MAX_LENGTH), nullable=True)
     current_inventory = db.Column(db.Integer, nullable=False, server_default="0")
+    price = db.Column(db.Integer, nullable=False, server_default="0")

@@ -29,6 +29,13 @@
                     {% endif %}
                 </div>
             {% endcall %}
+            {% call key_val_list_item("Price") %}
+                <div>
+                    <span>
+                        ${{'%0.2f'| format(item.price/100.0|float)}}
+                    </span>
+                </div>
+            {% endcall %}
             {% call key_val_list_item("Current Inventory") %}
                 <div>
                     <span
@@ -38,6 +45,7 @@
                     </span>
                 </div>
             {% endcall %}
+
         </div>
     </div>
     <div class="card-footer d-flex">
