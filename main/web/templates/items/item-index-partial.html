@@ -40,7 +40,17 @@
             {% endcall %}
         </div>
     </div>
-    <div class="card-footer">
+    <div class="card-footer d-flex">
         <a href="{{ url_for("items.edit", item_id=item.item_id) }}">Edit</a>
+        <a
+            href="{{ url_for("items.delete", item_id=item.item_id) }}"
+            hx-delete="{{ url_for("items.delete", item_id=item.item_id) }}"
+            hx-target="#items-list"
+            hx-confirm="Are you sure you want to delete {{ item.name }}?"
+            hx-swap="outerHTML"
+            class="ms-auto"
+        >
+            Delete
+        </a>
     </div>
 </div>

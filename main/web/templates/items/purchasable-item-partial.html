@@ -1,5 +1,12 @@
 <div class="card mb-4 no-mb-last" id="item-{{ item.item_id }}">
     <div class="card-body">
+        {% if item.image_url %}
+            <div class="row">
+                <div class="col-3 mb-3">
+                    <img src="{{ item.image_url }}" alt="A nice view of the {{ item.name }} product" class="img-thumbnail">
+                </div>
+            </div>
+        {% endif %}
         <h5 class="card-title">{{ item.name }}</h5>
         <p>
             {% if item.description %}
@@ -14,6 +21,7 @@
                 id="add-item-{{ item.item_id }}-form"
                 hx-post="{{ url_for("carts.add_to_cart") }}"
                 hx-target="#item-{{ item.item_id }}"
+                hx-swap="outerHTML"
                 method="POST"
             >
                 <input type="hidden" value="{{ item.item_id }}" name="item_id">
@@ -36,6 +44,7 @@
                 href="{{ url_for("carts.remove_from_cart", item_id=item.item_id, screen="items") }}"
                 hx-post="{{ url_for("carts.remove_from_cart", item_id=item.item_id, screen="items") }}"
                 hx-target="#item-{{ item.item_id }}"
+                hx-swap="outerHTML"
             >
                 Remove from cart
             </a>
