@@ -4,6 +4,7 @@ from datetime import datetime
 from .forms import Login, Create
 from main import db, bcrypt
 from .models import Account
+from ..carts.services import get_or_initialize_cart
 
 accounts = Blueprint("accounts", __name__, url_prefix="/accounts")
 
@@ -26,6 +27,7 @@ def login():
             account.last_login = datetime.now()
             db.session.commit()
 
+            get_or_initialize_cart()
             return redirect(next_page) if next_page else redirect(url_for("home.index"))
         else:
             flash("Incorrect login credentials.", "danger")
