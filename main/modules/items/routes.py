@@ -16,6 +16,7 @@ def update_item(item_entity, form) -> Item:
     item_entity.description = form.description.data if len(form.description.data) else None
     item_entity.image_url = form.image_url.data if len(form.image_url.data) else None
     item_entity.current_inventory = form.current_inventory.data
+    item_entity.price = int(round(form.price.data, 2) * 100)  # stored in cents, not dollars
 
     return item_entity
 
@@ -76,6 +77,7 @@ def edit(item_id: int):
         form.description.data = item.description
         form.image_url.data = item.image_url
         form.current_inventory.data = item.current_inventory
+        form.price.data = round(float(item.price)/100.0, 2)  # convert from cents to dollars
 
     return render_template("items/create-edit.html",
                            mode="edit",

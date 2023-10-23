@@ -7,7 +7,7 @@
                 </div>
             </div>
         {% endif %}
-        <h5 class="card-title">{{ item.name }}</h5>
+        <h5 class="card-title">{{ item.name }} · ${{'%0.2f'| format(item.price/100.0|float)}}</h5>
         <p>
             {% if item.description %}
                 {{ item.description }}

@@ -13,6 +13,7 @@
                 {{ form_group(form, "name", required=True, render_kw={"autofocus": True}) }}
                 {{ form_group(form, "description") }}
                 {{ form_group(form, "image_url") }}
+                {{ form_group(form, "price", required=True, input_group_addon="$") }}
                 {{ form_group(form, "current_inventory", required=True) }}
 
                 <div class="bottom-buttons">
