@@ -2,7 +2,7 @@ import logging
 
 from flask import Blueprint, render_template, flash, redirect, url_for, request, abort
 
-from .models import cart_item
+from .models import CartItem
 from .services import get_or_initialize_cart
 from flask_login import login_required
 from main import db
@@ -39,7 +39,11 @@ def add_to_cart():
     item = Item.query.get_or_404(item_id)
     # todo - doesn't handle duplicates, doesn't actually handle count
     # https://docs.sqlalchemy.org/en/20/orm/basic_relationships.html#association-object
-    cart.items.append(item)
+    cart_item = CartItem()
+    cart_item.cart = cart
+    cart_item.item = item
+    cart_item.count = count
+    cart.cart_items.append(cart_item)
     db.session.commit()
 
     return render_template("carts/add-to-cart-result.html", item=item, screen="items")
@@ -50,6 +54,7 @@ def add_to_cart():
 def remove_from_cart(item_id: int, screen: str):
     cart = get_or_initialize_cart()
     item = Item.query.get_or_404(item_id)
-    cart.items.remove(item)
+    cart_item_to_remove = CartItem.query.filter(CartItem.cart == cart and CartItem.item == item).first_or_404()
+    cart.cart_items.remove(cart_item_to_remove)
     db.session.commit()
     return render_template("carts/add-to-cart-result.html", item=item, screen=screen, cart=cart)
