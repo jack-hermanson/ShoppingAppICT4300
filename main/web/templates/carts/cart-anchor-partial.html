@@ -3,9 +3,9 @@
         <span>🛒</span>
         {% if not current_user.cart %}
             ERROR
-        {% elif current_user.cart.items|length > 0 %}
+        {% elif current_user.cart.cart_items|length > 0 %}
             <span class="ms-2">
-                {{ current_user.cart.items|length }}
+                {{ current_user.cart.cart_items|length }}
             </span>
         {% endif %}
     </span>

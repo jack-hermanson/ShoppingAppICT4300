@@ -1,15 +1,16 @@
 <div id="cart-items">
-    {% if cart.items|length < 1 %}
+    {% if cart.cart_items|length < 1 %}
         <p>Cart is empty</p>
     {% else %}
     <h5>Items in cart:</h5>
     <ul>
-        {% for item in cart.items %}
+        {% for cart_item in cart.cart_items %}
             <li>
-                {{ item.name }}
+                {{ cart_item.item.name }}
+                (x{{ cart_item.count }})
                 <a
-                    href="{{ url_for("carts.remove_from_cart", item_id=item.item_id, screen="cart") }}"
-                    hx-post="{{ url_for("carts.remove_from_cart", item_id=item.item_id, screen="cart") }}"
+                    href="{{ url_for("carts.remove_from_cart", item_id=cart_item.item.item_id, screen="cart") }}"
+                    hx-post="{{ url_for("carts.remove_from_cart", item_id=cart_item.item.item_id, screen="cart") }}"
                     hx-target="#cart-items"
                     hx-swap="outerHTML"
                 >
