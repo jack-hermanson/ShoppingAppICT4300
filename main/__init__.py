@@ -38,6 +38,7 @@ def create_app(config_class=Config):
     from .modules.accounts import models
     from .modules.items import models
     from .modules.carts import models
+    from .modules.orders import models
 
     # database
     db.app = app
