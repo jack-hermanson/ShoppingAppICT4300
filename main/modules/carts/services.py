@@ -18,3 +18,11 @@ def get_or_initialize_cart():
             db.session.add(new_cart)
             db.session.commit()
             return new_cart
+
+
+def get_cart_total_cost():
+    """Sum up all items' costs in the cart, multiplied by the count of that item, divided by 100¢/dollar"""
+    cart = get_or_initialize_cart()
+    total = sum(((item.price / 100.0) * count) for (item, count) in [(cart_item.item, cart_item.count)
+                                                                     for cart_item in cart.cart_items])
+    return total

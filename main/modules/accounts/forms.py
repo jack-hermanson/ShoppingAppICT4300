@@ -1,16 +1,17 @@
 from sqlalchemy import func
-from .models import Account
+from .models import Account, EMAIL_MIN_LENGTH, EMAIL_MAX_LENGTH, USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, SubmitField, PasswordField, BooleanField, EmailField
 from wtforms.validators import DataRequired, EqualTo, ValidationError, Email, Length
 
 
-name_length = Length(min=2, max=15)
+username_length = Length(min=USERNAME_MIN_LENGTH, max=USERNAME_MAX_LENGTH)
 password_length = Length(max=100)
+email_length = Length(min=EMAIL_MIN_LENGTH, max=EMAIL_MAX_LENGTH)
 
 
 class Login(FlaskForm):
-    username = StringField("Username", validators=[DataRequired(), name_length], render_kw={
+    username = StringField("Username", validators=[DataRequired(), username_length], render_kw={
         "autofocus": "true"
     })
     password = PasswordField("Password", validators=[DataRequired(), password_length])
@@ -27,7 +28,7 @@ class Login(FlaskForm):
 class Create(FlaskForm):
     username = StringField(
         "Username",
-        validators=[DataRequired(), name_length],
+        validators=[DataRequired(), username_length],
         render_kw={
             "autofocus": "true"
         }
