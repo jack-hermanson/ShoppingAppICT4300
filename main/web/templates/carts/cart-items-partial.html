@@ -3,21 +3,29 @@
         <p>Cart is empty</p>
     {% else %}
     <h5>Items in cart:</h5>
-    <ul>
-        {% for cart_item in cart.cart_items %}
-            <li>
-                {{ cart_item.item.name }}
-                (x{{ cart_item.count }})
-                <a
-                    href="{{ url_for("carts.remove_from_cart", item_id=cart_item.item.item_id, screen="cart") }}"
-                    hx-post="{{ url_for("carts.remove_from_cart", item_id=cart_item.item.item_id, screen="cart") }}"
-                    hx-target="#cart-items"
-                    hx-swap="outerHTML"
-                >
-                    Remove from cart
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+        <div class="list-group">
+            {% for cart_item in cart.cart_items %}
+                <div class="list-group-item">
+                    {{ cart_item.item.name }}
+                    (x{{ cart_item.count }} at ${{'%0.2f'| format((cart_item.item.price / 100.0)|float)}} each)
+                    =
+                    ${{'%0.2f'| format((cart_item.count * (cart_item.item.price / 100.0))|float)}}
+                    <a
+                        href="{{ url_for("carts.remove_from_cart", item_id=cart_item.item.item_id, screen="cart") }}"
+                        hx-post="{{ url_for("carts.remove_from_cart", item_id=cart_item.item.item_id, screen="cart") }}"
+                        hx-target="#cart-items"
+                        hx-swap="outerHTML"
+                    >
+                        Remove from cart
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <div>
+            <b>Total:</b> ${{'%0.2f'| format(cart_total)}}
+        </div>
+        <div>
+            <button class="btn btn-success">Check Out</button>
+        </div>
     {% endif %}
 </div>

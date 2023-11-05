@@ -3,7 +3,7 @@ import logging
 from flask import Blueprint, render_template, flash, redirect, url_for, request, abort
 
 from .models import CartItem
-from .services import get_or_initialize_cart
+from .services import get_or_initialize_cart, get_cart_total_cost
 from flask_login import login_required
 from main import db
 from ..items.models import Item
@@ -15,8 +15,10 @@ carts = Blueprint("carts", __name__, url_prefix="/carts")
 @login_required
 def my_cart():
     cart = get_or_initialize_cart()
+    cart_total = get_cart_total_cost()
     return render_template("carts/cart.html",
-                           cart=cart)
+                           cart=cart,
+                           cart_total=cart_total)
 
 
 @carts.route("/anchor-partial")
@@ -57,4 +59,6 @@ def remove_from_cart(item_id: int, screen: str):
     cart_item_to_remove = CartItem.query.filter(CartItem.cart == cart and CartItem.item == item).first_or_404()
     cart.cart_items.remove(cart_item_to_remove)
     db.session.commit()
-    return render_template("carts/add-to-cart-result.html", item=item, screen=screen, cart=cart)
+    cart_total = get_cart_total_cost()
+    return render_template("carts/add-to-cart-result.html",
+                           item=item, screen=screen, cart=cart, cart_total=cart_total)
