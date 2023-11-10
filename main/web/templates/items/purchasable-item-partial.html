@@ -17,11 +17,13 @@
         </p>
 {#        <p>debug:  {{ item.item_id in (current_user.cart.cart_items|map(attribute="item_id")|list) }}</p>#}
 {#        <p>debug2: {{ item in (current_user.cart.cart_items|map(attribute="item")|list) }}</p>#}
-        {% for cart_item in current_user.cart.cart_items %}
-            {% if cart_item.item == item %}
-                <p>in the cart!</p>
-            {% endif %}
-        {% endfor %}
+        {% if current_user.is_authenticated %}
+            {% for cart_item in current_user.cart.cart_items %}
+                {% if cart_item.item == item %}
+                    <p>in the cart!</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
         {% if current_user.is_authenticated and not item in (current_user.cart.cart_items|map(attribute="item")|list) %}
             <form
                 class="d-flex"

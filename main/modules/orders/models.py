@@ -21,7 +21,7 @@ class Order(db.Model):
     account_id = db.mapped_column(db.ForeignKey("account.account_id"), nullable=False)
     date_submitted = db.Column(db.DateTime, server_default=func.now(), nullable=False)
 
-    order_items = db.relationship("OrderItem", back_populates="order", cascade="save-update, merge, delete, delete-orphan")
+    order_items = db.relationship("OrderItem", back_populates="order")
     account = db.relationship("Account", back_populates="orders")
 
 
