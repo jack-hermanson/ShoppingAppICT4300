@@ -10,7 +10,11 @@
             <div class="input-group mb-3">
                 <span class="input-group-text">{{ input_group_addon }}</span>
         {% endif %}
-        {{ form[name](class="form-control form-control-lg is-invalid", **render_kw) }}
+        {% if type == "select" %}
+            {{ form[name](class="form-select form-select-lg is-invalid", **render_kw) }}
+        {% else %}
+            {{ form[name](class="form-control form-control-lg is-invalid", **render_kw) }}
+        {% endif %}
         {% if input_group_addon %}
             </div>
         {% endif %}
@@ -24,7 +28,11 @@
             <div class="input-group mb-3">
                 <span class="input-group-text">{{ input_group_addon }}</span>
         {% endif %}
-        {{ form[name](class="form-control form-control-lg", **render_kw) }}
+        {% if type == "select" %}
+            {{ form[name](class="form-select form-select-lg", **render_kw) }}
+        {% else %}
+            {{ form[name](class="form-control form-control-lg", **render_kw) }}
+        {% endif %}
         {% if input_group_addon %}
             </div>
         {% endif %}
