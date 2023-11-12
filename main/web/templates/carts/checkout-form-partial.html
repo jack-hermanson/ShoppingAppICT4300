@@ -1,0 +1,31 @@
+{% from "macros/form.html" import form_group %}
+
+<form id="checkout" method="POST" action="{{ url_for("carts.checkout") }}">
+
+    <fieldset class="border-bottom mb-3 pb-2">
+        {{ form_group(form, "name", required=True) }}
+
+        {{ form_group(form, "street_address", required=True) }}
+        {{ form_group(form, "zip_code", required=True,
+            render_kw={
+                "hx-post": url_for("carts.zip_lookup"),
+                "hx-target": "#checkout",
+                "hx-replace": "outerHTML",
+                "hx-include": "#checkout",
+                "hx-trigger": "keyup[target.value.length >= 5] changed",
+                "hx-disabled-elt": "[disable_pending]"
+            })
+        }}
+        {{ form_group(form, "city", render_kw={"disable_pending": True}, required=True) }}
+        {{ form_group(form, "state", type="select", render_kw={"disable_pending": True}, required=True) }}
+    </fieldset>
+    <fieldset>
+        {{ form_group(form, "credit_card_number", render_kw={"autocomplete": "cc-number"}, required=True) }}
+        {{ form_group(form, "expiration_date", required=True) }}
+    </fieldset>
+    <div class="bottom-buttons">
+        {{ form.submit(class="btn btn-success") }}
+    </div>
+</form>
+
+{#keyup[target.value.length >= 5]#}

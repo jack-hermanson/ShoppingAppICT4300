@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% set title = "Check Out" %}
+{% set active_route = "" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            {% include "carts/checkout-form-partial.html" %}
+        </div>
+        <div class="col-12 col-lg-4 d-none d-lg-block">
+            <div class="border-start ps-4">
+
+                <h5>Data Protections</h5>
+                <p>
+                    We do not protect your data at all. Your credit card information is stored in plaintext in our database.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

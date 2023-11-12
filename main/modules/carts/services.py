@@ -1,3 +1,6 @@
+import logging
+
+import requests
 from flask_login import current_user
 from .models import Cart
 from main import db
@@ -26,3 +29,25 @@ def get_cart_total_cost():
     total = sum(((item.price / 100.0) * count) for (item, count) in [(cart_item.item, cart_item.count)
                                                                      for cart_item in cart.cart_items])
     return total
+
+
+def get_zip_info(zip_code):
+    api_key = "c6c50a20-9b45-11eb-bf7d-27621b3d470d"
+    base_url = "https://app.zipcodebase.com/api/v1/search"
+    url = f"{base_url}?codes={zip_code}&country=US&apikey={api_key}"
+
+    req = requests.get(url)
+    raw_data = req.json()
+    try:
+        key = list(raw_data.get("results").keys())[0]
+        data = raw_data.get("results").get(key)[0]
+        city = data.get("city")
+        state_code = data.get("state_code")
+
+        if state_code is None:
+            raise AttributeError(f"State code came back as None")
+
+        return {"city": city, "state": state_code}
+    except AttributeError:
+        logging.fatal(f"Invalid zip code or request failed for {zip_code}")
+        raise

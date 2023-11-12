@@ -21,7 +21,15 @@ class Order(db.Model):
     account_id = db.mapped_column(db.ForeignKey("account.account_id"), nullable=False)
     date_submitted = db.Column(db.DateTime, server_default=func.now(), nullable=False)
 
-    order_items = db.relationship("OrderItem", back_populates="order", cascade="save-update, merge, delete, delete-orphan")
+    last_four_digits = db.Column(db.String(4), nullable=False)
+    expiration = db.Column(db.String(5), nullable=False)
+    name = db.Column(db.String, nullable=False)
+    street_address = db.Column(db.String, nullable=False)
+    city = db.Column(db.String, nullable=False)
+    state = db.Column(db.String(2), nullable=False)
+    zip_code = db.Column(db.String(5), nullable=False)
+
+    order_items = db.relationship("OrderItem", back_populates="order")
     account = db.relationship("Account", back_populates="orders")
 
 
