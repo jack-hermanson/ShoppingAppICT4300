@@ -3,10 +3,6 @@
         <span>Cart{% if current_user.cart and current_user.cart.cart_items|length > 0 %}:{% endif %}</span>
         {% if not current_user.cart %}
             ERROR
-        {% elif current_user.cart.cart_items|length == 0 %}
-            <span class="ms-2 text-muted">
-                (empty)
-            </span>
         {% elif current_user.cart.cart_items|length > 0 %}
             <span class="ms-2">
                 {{ current_user.cart.cart_items|length }}
