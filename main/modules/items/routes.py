@@ -91,6 +91,10 @@ def delete(item_id):
     if current_user.clearance < ClearanceEnum.ADMIN:
         return abort(403)
     item = Item.query.get_or_404(item_id)
+
+    # cascade delete doesn't seem to work on its own, so we do it manually here
+    services.remove_item_from_all_carts(item)
+
     db.session.delete(item)
     db.session.commit()
 
