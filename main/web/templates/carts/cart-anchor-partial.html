@@ -1,6 +1,6 @@
 <a href="{{ url_for("carts.my_cart") }}" class="nav-link" id="cart-anchor" hx-swap-oob="true">
     <span class="badge bg-dark">
-        <span>Cart:</span>
+        <span>Cart{% if current_user.cart and current_user.cart.cart_items|length > 0 %}:{% endif %}</span>
         {% if not current_user.cart %}
             ERROR
         {% elif current_user.cart.cart_items|length > 0 %}
