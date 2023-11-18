@@ -1,8 +1,5 @@
-import logging
-
-import requests
-
-from flask import Blueprint, render_template, flash, redirect, url_for, request, abort
+from flask import Blueprint, render_template, request
+from sqlalchemy import and_
 
 from .forms import CheckoutForm
 from .models import CartItem
@@ -58,10 +55,11 @@ def add_to_cart():
 def remove_from_cart(item_id: int, screen: str):
     cart = get_or_initialize_cart()
     item = Item.query.get_or_404(item_id)
-    cart_item_to_remove = CartItem.query.filter(CartItem.cart == cart and CartItem.item == item).first_or_404()
+    cart_item_to_remove = CartItem.query.filter(and_(CartItem.cart == cart, CartItem.item == item)).first_or_404()
     cart.cart_items.remove(cart_item_to_remove)
     db.session.commit()
     cart_total = get_cart_total_cost()
+    cart = get_or_initialize_cart()
     return render_template("carts/add-to-cart-result.html",
                            item=item, screen=screen, cart=cart, cart_total=cart_total)
 

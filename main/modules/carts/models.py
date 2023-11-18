@@ -20,6 +20,6 @@ class Cart(db.Model):
     account_id = db.mapped_column(db.ForeignKey("account.account_id"), nullable=False)
     last_updated = db.Column(db.DateTime, server_default=func.now(), nullable=False)
 
-    cart_items = db.relationship("CartItem", back_populates="cart", cascade="save-update, merge, delete, delete-orphan")
+    cart_items = db.relationship("CartItem", back_populates="cart", cascade="all, delete-orphan")
     account = db.relationship("Account", back_populates="cart", single_parent=True, uselist=False)
 

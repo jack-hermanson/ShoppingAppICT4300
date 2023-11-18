@@ -15,19 +15,9 @@
                 <span class="text-muted">No description</span>
             {% endif %}
         </p>
-{#        <p>debug:  {{ item.item_id in (current_user.cart.cart_items|map(attribute="item_id")|list) }}</p>#}
-{#        <p>debug2: {{ item in (current_user.cart.cart_items|map(attribute="item")|list) }}</p>#}
-{#        {% if current_user.is_authenticated %}#}
-{#            {% for cart_item in current_user.cart.cart_items %}#}
-{#                {% if cart_item.item == item %}#}
-{#                    <p>in the cart!</p>#}
-{#                {% endif %}#}
-{#            {% endfor %}#}
-{#        {% endif %}#}
         {% if current_user.is_authenticated and not item in (current_user.cart.cart_items|map(attribute="item")|list) %}
             <form
                 class="d-flex"
-                id="add-item-{{ item.item_id }}-form"
                 hx-post="{{ url_for("carts.add_to_cart") }}"
                 hx-target="#item-{{ item.item_id }}"
                 hx-swap="outerHTML"

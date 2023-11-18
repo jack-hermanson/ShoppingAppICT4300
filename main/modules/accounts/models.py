@@ -26,8 +26,8 @@ class Account(db.Model, UserMixin):
     join_date = db.Column(db.DateTime, server_default=func.now(), nullable=False)
     last_login = db.Column(db.DateTime, nullable=True)
 
-    cart = db.relationship("Cart", back_populates="account", cascade="all, delete", uselist=False)
-    orders = db.relationship("Order", back_populates="account", cascade="save-update, merge, delete, delete-orphan")
+    cart = db.relationship("Cart", back_populates="account", cascade="all, delete-orphan", uselist=False)
+    orders = db.relationship("Order", back_populates="account", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<Account: {self.account_id}, {self.username}>"
